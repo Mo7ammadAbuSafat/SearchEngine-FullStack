@@ -8,9 +8,11 @@ namespace SearchApi.Controllers
     public class DocumentsController : ControllerBase
     {
         private readonly IIndexService indexService;
-        public DocumentsController(IIndexService indexService)
+        private readonly ISearchService searchService;
+        public DocumentsController(IIndexService indexService, ISearchService searchService)
         {
             this.indexService = indexService;
+            this.searchService = searchService;
         }
 
         [HttpPost]
@@ -18,6 +20,13 @@ namespace SearchApi.Controllers
         {
             await indexService.BuildInvertedIndexByCSVFile(file, tokenizeType, isWithStemming);
             return NoContent();
+        }
+
+        [HttpGet]
+        public IActionResult GetRelevantDocuments(string searchText, int pageSize, int pageNumber)
+        {
+            var result = searchService.Search(searchText, pageSize, pageNumber);
+            return Ok(result);
         }
     }
 }

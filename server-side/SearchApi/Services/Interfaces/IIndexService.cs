@@ -2,6 +2,6 @@
 {
     public interface IIndexService
     {
-        Task BuildInvertedIndexByCSVFile(IFormFile file, string tokenizeType, bool isWithStemming);
+        Task BuildInvertedIndexByCSVFile(IFormFile file, string tokenizerType, bool isWithStemming);
     }
 }

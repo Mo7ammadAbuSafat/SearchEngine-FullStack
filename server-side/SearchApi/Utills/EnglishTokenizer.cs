@@ -16,7 +16,7 @@ namespace SearchApi.Utills
             "ourselves", "they", "themselves"
         };
 
-        public static string[] Tokenize(string text, string tokenizeType)
+        public static string[] Tokenize(string text, string tokenizerType)
         {
             string pattern = @"[\W_]+";
             string[] tokens = Regex.Split(text, pattern)
@@ -24,7 +24,7 @@ namespace SearchApi.Utills
                         .Select(word => word.ToLower())
                         .ToArray();
 
-            if (tokenizeType == "without-stop-words")
+            if (tokenizerType == "without-stop-words")
             {
                 tokens = tokens
                     .Where(word => !StopWords.Contains(word))
