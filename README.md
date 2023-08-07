@@ -1,6 +1,7 @@
 # Custom Search Engine
 
-![image](https://github.com/Mo7ammadAbuSafat/SearchEngine-FullStack/assets/103439731/003b7955-a98d-468b-9631-5f89eda14979)
+![image](https://github.com/Mo7ammadAbuSafat/SearchEngine-FullStack/assets/103439731/6c7c470a-90f4-4e56-83cb-e7ad755e6e38)
+
 
 ## Table of Contents
 
@@ -48,14 +49,16 @@ The Custom Search Engine is a powerful tool that allows users to perform efficie
 
 3. **Inverted Index Building**: The system builds the inverted index based on the selected options to facilitate efficient searching.
 
-![image](https://github.com/Mo7ammadAbuSafat/SearchEngine-FullStack/assets/103439731/9dd219cf-ffc1-4e3b-a8f8-dbe91ee0dad9)
+![image](https://github.com/Mo7ammadAbuSafat/SearchEngine-FullStack/assets/103439731/a1c9279f-4a5f-4b12-ac84-ff9785f55c56)
+
 
 
 4. **Search Text**: Users can enter search queries, and the system will tokenize and apply stemming using the same indexing options to deliver relevant results.
 
 5. **Scoring and Ranking**: The search results are scored based on the number of matched terms, and the documents are displayed in descending order by rank.
 
-![image](https://github.com/Mo7ammadAbuSafat/SearchEngine-FullStack/assets/103439731/4d04db39-a3b9-4c82-8b6d-d89f6eacdf92)
+![image](https://github.com/Mo7ammadAbuSafat/SearchEngine-FullStack/assets/103439731/54589867-3543-41fd-8cb6-195bfffdc638)
+
 
 
 ## Building the Inverted Index
