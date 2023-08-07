@@ -6,7 +6,7 @@ namespace SearchApi.Utills
     {
         private static readonly HashSet<string> StopWords = new HashSet<string>()
         {
-            "a", "an", "the", "is", "and", "it", "of", "to", "in", "for", "on", "with",
+            "a", "an", "the", "is", "and", "its", "of", "to", "in", "for", "on", "with",
             "as", "at", "by", "from", "up", "but", "so", "not", "only", "too", "here",
             "there", "when", "why", "how", "all", "any", "both", "each", "more", "most",
             "other", "some", "such", "no", "own", "same", "than", "that", "these",
@@ -16,19 +16,24 @@ namespace SearchApi.Utills
             "ourselves", "they", "themselves"
         };
 
-        public static string[] Tokenize(string text, string tokenizerType)
+        public static IEnumerable<string> Tokenize(string text, string tokenizerType, bool isAllowedFrequency)
         {
             string pattern = @"[\W_]+";
-            string[] tokens = Regex.Split(text, pattern)
+            IEnumerable<string> tokens = Regex.Split(text, pattern)
                         .Where(word => !string.IsNullOrWhiteSpace(word))
                         .Select(word => word.ToLower())
-                        .ToArray();
+                        .ToList();
 
             if (tokenizerType == "without-stop-words")
             {
                 tokens = tokens
                     .Where(word => !StopWords.Contains(word))
-                    .ToArray();
+                    .ToList();
+            }
+
+            if (!isAllowedFrequency)
+            {
+                tokens = tokens.ToHashSet();
             }
 
             return tokens;

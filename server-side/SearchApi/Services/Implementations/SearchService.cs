@@ -19,16 +19,21 @@ namespace SearchApi.Services.Implementations
         public SearchResultDto Search(string searchText, int pageSize, int pageNumber)
         {
             var tokenizerType = invertedIndexRepository.GetTokenizerType();
-            var terms = EnglishTokenizer.Tokenize(searchText, tokenizerType);
-
+            var isALlowedFrequency = invertedIndexRepository.GetIsAllowedFrequency();
             var isWithStemming = invertedIndexRepository.GetIsWithStemming();
+
+
+            var terms = EnglishTokenizer.Tokenize(searchText, tokenizerType, isALlowedFrequency);
+
             if (isWithStemming)
             {
                 terms = terms.Select(term => EnglishStemmer.Stem(term)).ToArray();
             }
 
             var invertedIndex = invertedIndexRepository.GetIndex();
+
             var documentScores = new Dictionary<int, int>();
+
             foreach (string term in terms)
             {
                 if (invertedIndex.ContainsKey(term))
