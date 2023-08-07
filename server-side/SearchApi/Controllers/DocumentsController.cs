@@ -16,9 +16,13 @@ namespace SearchApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> BuildInvertedIndexAndStoreDocuments(IFormFile file, string tokenizeType, bool isWithStemming)
+        public async Task<IActionResult> BuildInvertedIndexAndStoreDocuments(
+            IFormFile file,
+            string tokenizeType,
+            bool isAllowedFrequency,
+            bool isWithStemming)
         {
-            await indexService.BuildInvertedIndexByCSVFile(file, tokenizeType, isWithStemming);
+            await indexService.BuildInvertedIndexByCSVFile(file, tokenizeType, isAllowedFrequency, isWithStemming);
             return NoContent();
         }
 

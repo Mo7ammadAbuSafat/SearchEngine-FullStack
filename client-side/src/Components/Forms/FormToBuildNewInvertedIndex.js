@@ -18,6 +18,10 @@ const FormToBuildNewInvertedIndex = () => {
   const handleTokenizeTypeChange = (event) => {
     setTokenizeType(event.target.value);
   };
+  const [isAllowedFrequency, setIsAllowedFrequency] = useState(true);
+  const handleIsAllowedFrequencyChange = (event) => {
+    setIsAllowedFrequency(event.target.value);
+  };
   const [isWithStemming, setIsWithStemming] = useState(false);
   const handleIsWithStemmingChange = (event) => {
     setIsWithStemming(event.target.value);
@@ -35,6 +39,7 @@ const FormToBuildNewInvertedIndex = () => {
         .post(`https://localhost:7235/api/documents`, formData, {
           params: {
             tokenizeType: tokenizeType,
+            isAllowedFrequency: isAllowedFrequency,
             isWithStemming: isWithStemming,
           },
           headers: {
@@ -65,7 +70,7 @@ const FormToBuildNewInvertedIndex = () => {
         {file && <Typography>{file.name}</Typography>}
       </Stack>
 
-      <Stack direction={"row"} spacing={2}>
+      <Stack spacing={2}>
         <FormControl>
           <FormLabel id="demo-controlled-radio-buttons-group">
             Tokenize Type
@@ -73,14 +78,12 @@ const FormToBuildNewInvertedIndex = () => {
           <RadioGroup
             aria-labelledby="demo-controlled-radio-buttons-group"
             name="controlled-radio-buttons-group"
-            //   value={value}
             onChange={handleTokenizeTypeChange}
           >
             <FormControlLabel
               value="with-stop-words"
               control={<Radio />}
               label="with stop words"
-              checked
             />
             <FormControlLabel
               value="without-stop-words"
@@ -91,19 +94,38 @@ const FormToBuildNewInvertedIndex = () => {
         </FormControl>
         <FormControl>
           <FormLabel id="demo-controlled-radio-buttons-group">
+            Frequency Option
+          </FormLabel>
+          <RadioGroup
+            aria-labelledby="demo-controlled-radio-buttons-group"
+            name="controlled-radio-buttons-group"
+            onChange={handleIsAllowedFrequencyChange}
+          >
+            <FormControlLabel
+              value={true}
+              control={<Radio />}
+              label="allow frequent terms"
+            />
+            <FormControlLabel
+              value={false}
+              control={<Radio />}
+              label="don't allow frequent terms"
+            />
+          </RadioGroup>
+        </FormControl>
+        <FormControl>
+          <FormLabel id="demo-controlled-radio-buttons-group">
             Is With Stemming
           </FormLabel>
           <RadioGroup
             aria-labelledby="demo-controlled-radio-buttons-group"
             name="controlled-radio-buttons-group"
-            //   value={value}
-            onChange={handleTokenizeTypeChange}
+            onChange={handleIsWithStemmingChange}
           >
             <FormControlLabel
               value={true}
               control={<Radio />}
               label="with stemming"
-              checked
             />
             <FormControlLabel
               value={false}

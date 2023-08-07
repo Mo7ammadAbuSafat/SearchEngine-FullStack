@@ -17,7 +17,7 @@ namespace SearchApi.Services.Implementations
             this.fileService = fileService;
         }
 
-        public async Task BuildInvertedIndexByCSVFile(IFormFile file, string tokenizerType, bool isWithStemming)
+        public async Task BuildInvertedIndexByCSVFile(IFormFile file, string tokenizerType, bool isAllowedFrequency, bool isWithStemming)
         {
             string filePath = await fileService.StoreImageToLocalFolder(file);
             Dictionary<int, string> documents = CSVReader.Read(filePath);
@@ -27,7 +27,7 @@ namespace SearchApi.Services.Implementations
 
             foreach (var key in documents.Keys)
             {
-                var terms = EnglishTokenizer.Tokenize(documents[key], tokenizerType);
+                var terms = EnglishTokenizer.Tokenize(documents[key], tokenizerType, isAllowedFrequency);
                 if (isWithStemming)
                 {
                     terms = terms.Select(term => EnglishStemmer.Stem(term)).ToArray();
@@ -45,7 +45,7 @@ namespace SearchApi.Services.Implementations
                     }
                 }
             }
-            invertedIndexRepository.Set(invertedIndex, isWithStemming, tokenizerType);
+            invertedIndexRepository.Set(invertedIndex, isWithStemming, tokenizerType, isAllowedFrequency);
         }
     }
 }
